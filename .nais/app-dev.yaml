@@ -1,0 +1,34 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: gosys-medarbeider-notifikasjon
+  namespace: oppgavehandtering
+  labels:
+    team: oppgavehandtering
+spec:
+  prometheus:
+    enabled: true
+    path: internal/metrics
+  observability:
+    tracing:
+      enabled: true
+  azure:
+    application:
+      enabled: true
+  accessPolicy:
+    outbound:
+      rules:
+        - application: gosys-oppgavebehandling-api
+  image: {{image}}
+  port: 8080
+  liveness:
+    path: internal/health/alive
+  readiness:
+    path: internal/health/ready
+  secureLogs:
+    enabled: true
+  env:
+    - name: GOSYS_OPPGAVEBEHANDLING_API_URL
+      value: http://gosys-oppgavebehandling-api
+    - name: GOSYS_OPPGAVEBEHANDLING_API_SCOPE
+      value: api://dev-gcp.oppgavehandtering.gosys-oppgavebehandling-api/.default
