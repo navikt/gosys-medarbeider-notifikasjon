@@ -25,6 +25,8 @@ spec:
     path: internal/health/alive
   readiness:
     path: internal/health/ready
+  kafka:
+    pool: nav-dev
   secureLogs:
     enabled: true
   env:

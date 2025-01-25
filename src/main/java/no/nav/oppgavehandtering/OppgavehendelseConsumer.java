@@ -12,7 +12,7 @@ public class OppgavehendelseConsumer {
     @Inject
     OppgavehendelseMedarbeiderClient oppgavehendelseMedarbeiderClient;
 
-    @Incoming("oppgavehandtering.oppgavehendelse-v1")
+    @Incoming("oppgavehendelser")
     public void consume(Oppgavehendelse oppgavehendelse) {
         if(oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_OPPRETTET) {
             log.info("Mottatt hendelse for opprettet oppgave");
