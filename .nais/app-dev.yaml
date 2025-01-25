@@ -22,7 +22,7 @@ spec:
   image: {{image}}
   port: 8080
   liveness:
-    path: internal/health/alive
+    path: internal/health/live
   readiness:
     path: internal/health/ready
   kafka:
