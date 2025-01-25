@@ -20,7 +20,7 @@ jobs:
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v3
       - name: Gradle build
-        run: ./gradlew build -Dquarkus.package.jar.enabled=true
+        run: ./gradlew build
       - name: Build and push image and SBOM to OCI registry
         uses: nais/docker-build-push@v0
         id: docker-build-push
