@@ -53,6 +53,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: dev-gcp
+          CLUSTER: prod-gcp
           RESOURCE: .nais/app-prod.yaml
           VAR: image=${{ needs.build-push.outputs.image }}
