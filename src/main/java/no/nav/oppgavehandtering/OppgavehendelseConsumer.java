@@ -16,11 +16,14 @@ public class OppgavehendelseConsumer {
     public void consume(Oppgavehendelse oppgavehendelse) {
         if(oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_OPPRETTET) {
             log.info("Mottatt hendelse for opprettet oppgave");
+            if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven() && oppgavehendelse.oppgave().tilordning().navIdent() != null) {
+                log.info("Opprettet oppgave som er direkte tildelt en annnen medarbeider. Utført av: {}, tildelt: {}", oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
+            }
+        }  else if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven()) {
+            log.info("Mottatt hendelse utfort av {} {}. Oppgaven er tildelt: {}", oppgavehendelse.hendelse().hendelsestype(), oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
         } else if(oppgavehendelse.oppgaveAvsluttet()) {
             log.info("Mottatt hendelse for avsluttet oppgave");
             oppgavehendelseMedarbeiderClient.sendNotifikasjon(new Notifikasjon(oppgavehendelse.hendelse().hendelsestype()));
-        } else if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven()) {
-            log.info("Mottatt hendelse utfort av {}. Oppgaven er tildelt: {}", oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning().navIdent());
         } else {
             log.debug("Mottatt hendelse som ikke er relevant for notifikasjon");
         }
