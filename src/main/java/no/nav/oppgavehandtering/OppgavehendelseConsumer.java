@@ -19,8 +19,8 @@ public class OppgavehendelseConsumer {
             if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven() && oppgavehendelse.oppgave().tilordning().navIdent() != null) {
                 log.info("Opprettet oppgave som er direkte tildelt en annnen medarbeider. Utført av: {}, tildelt: {}", oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
             }
-        }  else if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven()) {
-            log.info("Mottatt hendelse utfort av {} {}. Oppgaven er tildelt: {}", oppgavehendelse.hendelse().hendelsestype(), oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
+        }  else if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven() && oppgavehendelse.oppgave().tilordning().navIdent() != null) {
+            log.info("Mottatt hendelse {} utfort av {}. Oppgaven er tildelt: {}", oppgavehendelse.hendelse().hendelsestype(), oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
         } else if(oppgavehendelse.oppgaveAvsluttet()) {
             log.info("Mottatt hendelse for avsluttet oppgave");
             oppgavehendelseMedarbeiderClient.sendNotifikasjon(new Notifikasjon(oppgavehendelse.hendelse().hendelsestype()));
