@@ -14,18 +14,13 @@ public class OppgavehendelseConsumer {
 
     @Incoming("oppgavehendelser")
     public void consume(Oppgavehendelse oppgavehendelse) {
-        if(oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_OPPRETTET) {
-            log.info("Mottatt hendelse for opprettet oppgave");
-            if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven() && oppgavehendelse.oppgave().tilordning().navIdent() != null) {
-                log.info("Opprettet oppgave som er direkte tildelt en annnen medarbeider. Utført av: {}, tildelt: {}", oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
-            }
-        }  else if(!oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven() && oppgavehendelse.oppgave().tilordning().navIdent() != null) {
-            log.info("Mottatt hendelse {} utfort av {}. Oppgaven er tildelt: {}", oppgavehendelse.hendelse().hendelsestype(), oppgavehendelse.utfortAv().navIdent(), oppgavehendelse.oppgave().tilordning());
-        } else if(oppgavehendelse.oppgaveAvsluttet()) {
-            log.info("Mottatt hendelse for avsluttet oppgave");
-            oppgavehendelseMedarbeiderClient.sendNotifikasjon(new Notifikasjon(oppgavehendelse.hendelse().hendelsestype()));
+        if (oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_ENDRET && oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven()) {
+            log.info("Oppgave: {}, Mottatt hendelse om endring utført av medarbeider som er tildelt oppgaven. Ikke relevant å varsle medarbeider", oppgavehendelse.oppgave().oppgaveId());
+        } else if (oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_OPPRETTET) {
+            log.info("Oppgave: {}, Mottatt hendelse om opprettet oppgave. Skal varsle ved direktetildeling eller dersom man allerede arbeider " +
+                    "med en oppgave tilknyttet aktuell bruker for fagområdet", oppgavehendelse.oppgave().oppgaveId());
         } else {
-            log.debug("Mottatt hendelse som ikke er relevant for notifikasjon");
+            log.info("Oppgave: {}, Mottatt hendelse om at oppgaven er avsluttet. Alltid videresende, og trigger varsel dersom utført av en annen", oppgavehendelse.oppgave().oppgaveId());
         }
     }
 }

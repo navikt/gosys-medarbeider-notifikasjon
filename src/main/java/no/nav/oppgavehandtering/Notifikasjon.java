@@ -1,5 +1,5 @@
 package no.nav.oppgavehandtering;
 
-public record Notifikasjon(Hendelsestype hendelsestype) {
+public record Notifikasjon(Long oppgaveId, Hendelsestype hendelsestype) {
 
 }

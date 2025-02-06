@@ -23,6 +23,7 @@ dependencies {
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
     testImplementation 'org.assertj:assertj-core:3.27.2'
+    testImplementation 'org.wiremock:wiremock:3.10.0'
 }
 
 group 'no.nav.oppgavehandtering'
