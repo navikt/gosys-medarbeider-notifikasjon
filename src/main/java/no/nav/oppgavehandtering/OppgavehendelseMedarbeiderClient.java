@@ -1,16 +1,17 @@
 package no.nav.oppgavehandtering;
 
 
+import io.quarkus.oidc.client.filter.OidcClientFilter;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-//@RegisterRestClient(configKey = "gosys-oppgavebehandling-api")
-//@OidcClientFilter("gosys-oppgavebehandling-api-ccf")
+@RegisterRestClient(configKey = "gosys-oppgavebehandling-api")
+@OidcClientFilter
 @ApplicationScoped
-public class OppgavehendelseMedarbeiderClient {
-
-//    @POST
-//    @Path("/api/medarbeider")
-    void sendNotifikasjon(Notifikasjon notifikasjon) {
-        //Dummy
-    }
+public interface OppgavehendelseMedarbeiderClient {
+    @POST
+    @Path("/hendelser")
+    void sendNotifikasjon(Oppgavehendelse oppgavehendelse);
 }
