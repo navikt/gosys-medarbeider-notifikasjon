@@ -41,18 +41,18 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: .nais/app-dev.yaml
           VAR: image=${{ needs.build-push.outputs.image }}
-#  deploy-prod:
-#    name: Deploy to prod
-#    needs: build-push
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: "read"
-#      id-token: "write"
-#    environment: dev-gcp:oppgavehandtering
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: nais/deploy/actions/deploy@v2
-#        env:
-#          CLUSTER: prod-gcp
-#          RESOURCE: .nais/app-prod.yaml
-#          VAR: image=${{ needs.build-push.outputs.image }}
+  deploy-prod:
+    name: Deploy to prod
+    needs: build-push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    environment: dev-gcp:oppgavehandtering
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/app-prod.yaml
+          VAR: image=${{ needs.build-push.outputs.image }}
