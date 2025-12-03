@@ -18,6 +18,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-micrometer-registry-prometheus'
     implementation 'io.quarkus:quarkus-smallrye-health'
     implementation 'io.quarkus:quarkus-logging-json'
+    implementation 'io.quarkus:quarkus-opentelemetry'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
@@ -43,4 +44,12 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+
+tasks.test {
+    jvmArgs("--add-opens", "java.base/java.lang=ALL-UNNAMED")
+}
+
+tasks.quarkusDev {
+    jvmArgs = List.of("--add-opens", "java.base/java.lang=ALL-UNNAMED")
 }
