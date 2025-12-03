@@ -22,16 +22,15 @@ dependencies {
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
-    testImplementation 'org.assertj:assertj-core:3.27.2'
-    testImplementation 'org.wiremock:wiremock:3.10.0'
+    testImplementation 'org.assertj:assertj-core:3.27.6'
+    testImplementation 'org.wiremock:wiremock:3.13.2'
 }
 
 group 'no.nav.oppgavehandtering'
-//version '1.0.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 test {
