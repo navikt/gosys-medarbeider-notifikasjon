@@ -26,7 +26,7 @@ Og bygge med:
 
 ## Henvendelser
 
-Spørsmål knyttet til koden eller repositoryet kan stilles som issues her på GitHub
+Spørsmål knyttet til koden eller repositoriet kan stilles som issues her på GitHub
 
 ### For Nav-ansatte
 
