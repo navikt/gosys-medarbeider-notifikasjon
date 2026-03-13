@@ -19,7 +19,7 @@ public record Oppgavehendelse(Hendelse hendelse, UtfortAv utfortAv, Oppgave oppg
 
     public record Kategorisering(String tema, String oppgavetype, String behandlingstema, String behandlingstype,
                                  Prioritet prioritet) {
-        public enum Prioritet {HOY, NORMAL, LAV}
+        public enum Prioritet {KRITISK, HOY, NORMAL, LAV}
     }
 
     public record Behandlingsperiode(LocalDate aktiv, LocalDate frist) {
