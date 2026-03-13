@@ -18,13 +18,8 @@ public class OppgavehendelseConsumer {
         if (oppgavehendelse.hendelse().hendelsestype() == Hendelsestype.OPPGAVE_ENDRET && oppgavehendelse.utfortAvMedarbeiderTildeltOppgaven()) {
             log.info("Oppgave: {}, Mottatt hendelse om endring utført av medarbeider som er tildelt oppgaven. Ikke relevant å varsle medarbeider", oppgavehendelse.oppgave().oppgaveId());
         }  else {
-            try {
-                log.info("Sender videre mottatt hendelse for: {}", oppgavehendelse.oppgave().oppgaveId());
-                oppgavehendelseMedarbeiderClient.sendNotifikasjon(oppgavehendelse);
-            } catch (Exception e) {
-                log.error("Kunne videresende hendelse for oppgave med id: {}", oppgavehendelse.oppgave().oppgaveId());
-                throw new IllegalArgumentException(e);
-            }
+            log.info("Sender videre mottatt hendelse for: {}", oppgavehendelse.oppgave().oppgaveId());
+            oppgavehendelseMedarbeiderClient.sendNotifikasjon(oppgavehendelse);
         }
     }
 }
