@@ -27,8 +27,6 @@ spec:
     path: internal/health/ready
   kafka:
     pool: nav-dev
-  secureLogs:
-    enabled: true
   env:
     - name: GOSYS_OPPGAVEBEHANDLING_API_URL
       value: http://gosys-oppgavebehandling-api
