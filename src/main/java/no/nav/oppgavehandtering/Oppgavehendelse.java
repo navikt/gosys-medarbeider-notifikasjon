@@ -1,5 +1,6 @@
 package no.nav.oppgavehandtering;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,7 +20,21 @@ public record Oppgavehendelse(Hendelse hendelse, UtfortAv utfortAv, Oppgave oppg
 
     public record Kategorisering(String tema, String oppgavetype, String behandlingstema, String behandlingstype,
                                  Prioritet prioritet) {
-        public enum Prioritet {KRITISK, HOY, NORMAL, LAV}
+        public enum Prioritet {
+            KRITISK, HOY, NORMAL, LAV;
+
+            @JsonCreator
+            public static Prioritet fromString(String value) {
+                if (value == null) return null;
+                return switch (value.toUpperCase()) {
+                    case "KRIT", "KRITISK" -> KRITISK;
+                    case "HOY", "HØY" -> HOY;
+                    case "NORMAL" -> NORMAL;
+                    case "LAV" -> LAV;
+                    default -> throw new IllegalArgumentException("Ukjent prioritet: " + value);
+                };
+            }
+        }
     }
 
     public record Behandlingsperiode(LocalDate aktiv, LocalDate frist) {
