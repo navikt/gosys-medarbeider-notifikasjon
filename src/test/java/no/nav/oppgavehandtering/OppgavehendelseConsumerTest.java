@@ -36,6 +36,17 @@ class OppgavehendelseConsumerTest {
     }
 
     @Test
+    void haandterer_kritisk_prioritet() {
+        Oppgavehendelse oppgavehendelse = new OppgavehendelseTestData()
+                .medHendelsestype(OPPGAVE_FERDIGSTILT)
+                .medPrioritet(Oppgavehendelse.Kategorisering.Prioritet.KRITISK)
+                .build();
+
+        this.connector.source("oppgavehendelser").send(oppgavehendelse);
+        verify(oppgavehendelseMedarbeiderClient).sendNotifikasjon(oppgavehendelse);
+    }
+
+    @Test
     void sender_ikke_notifikasjon_naar_endring_utfort_av_medarbeider_tildelt_oppgaven() {
         Oppgavehendelse oppgavehendelse = new OppgavehendelseTestData()
                 .medHendelsestype(OPPGAVE_ENDRET)

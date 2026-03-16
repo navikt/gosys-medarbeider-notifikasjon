@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class OppgavehendelseTestData {
     private Hendelsestype hendelsestype;
+    private Oppgavehendelse.Kategorisering.Prioritet prioritet;
     private Oppgavehendelse.Tilordning tilordning = new Oppgavehendelse.Tilordning("0101", null, "Z99998");
     private final Oppgavehendelse.UtfortAv utfortAv =  new Oppgavehendelse.UtfortAv("Z99999", "0101");
 
@@ -18,6 +19,11 @@ public class OppgavehendelseTestData {
         return this;
     }
 
+    public OppgavehendelseTestData medPrioritet(Oppgavehendelse.Kategorisering.Prioritet prioritet) {
+        this.prioritet = prioritet;
+        return this;
+    }
+
     public Oppgavehendelse build() {
         return new Oppgavehendelse
                 (new Oppgavehendelse.Hendelse(hendelsestype, LocalDateTime.now()),
@@ -25,7 +31,7 @@ public class OppgavehendelseTestData {
                         new Oppgavehendelse.Oppgave(1L, 1,
                                 tilordning,
                                 new Oppgavehendelse.Kategorisering("SYK", "JFR", null, null,
-                                        Oppgavehendelse.Kategorisering.Prioritet.NORMAL),
+                                       prioritet),
                                 new Oppgavehendelse.Behandlingsperiode(LocalDate.now(), LocalDate.now().plusDays(1)),
                                 null));
     }
