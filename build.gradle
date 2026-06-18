@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'org.wiremock:wiremock:3.13.2'
 }
 
-group 'no.nav.oppgavehandtering'
+group = 'no.nav.oppgavehandtering'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_25
