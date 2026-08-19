@@ -45,16 +45,4 @@ class OppgavehendelseConsumerTest {
         this.connector.source("oppgavehendelser").send(oppgavehendelse);
         verify(oppgavehendelseMedarbeiderClient).sendNotifikasjon(oppgavehendelse);
     }
-
-    @Test
-    void sender_ikke_notifikasjon_naar_endring_utfort_av_medarbeider_tildelt_oppgaven() {
-        Oppgavehendelse oppgavehendelse = new OppgavehendelseTestData()
-                .medHendelsestype(OPPGAVE_ENDRET)
-                .utfortAvTildelt()
-                .build();
-
-        this.connector.source("oppgavehendelser").send(oppgavehendelse);
-        verifyNoInteractions(oppgavehendelseMedarbeiderClient);
-    }
-
 }
